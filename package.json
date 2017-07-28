@@ -6,17 +6,18 @@
     "ws": false
   },
   "scripts": {
-    "test": "BABEL_ENV=test mocha --compilers js:babel-core/register --recursive",
+    "test": "cross-env BABEL_ENV=test mocha --compilers js:babel-core/register --recursive",
     "test:watch": "npm test -- --watch",
-    "test:manager": "BABEL_ENV=test mocha --compilers js:babel-core/register ./test/Manager --watch",
-    "clean": "rm -rf ./cjs/* & rm -rf ./build/* & rm -rf ./es/*",
+    "test:manager": "cross-env BABEL_ENV=test mocha --compilers js:babel-core/register ./test/Manager --watch",
+    "clean": "rimraf cjs build es",
     "prebuild": "npm run clean",
-    "build": "BABEL_ENV=cjs babel lib --out-dir cjs",
-    "build-es": "BABEL_ENV=es babel ./lib -d es",
+    "build": "cross-env BABEL_ENV=cjs babel lib --out-dir cjs",
+    "build-es": "cross-env BABEL_ENV=es babel ./lib -d es",
     "postbuild": "npm run browserify && npm run build-es",
     "prepublish": "npm run build",
-    "browserify": "NODE_ENV=production browserify cjs/src/ApiInstances.js --standalone bitshares_ws -o build/bitsharesjs-ws.js -d",
-    "postbrowserify": "NODE_ENV=production uglifyjs --compress --mangle --sequences --drop_console --mangle-props --screw-ie8 --output build/bitsharesjs-ws.min.js -- build/bitsharesjs-ws.js",
+    "prebrowserify": "mkdirp build",
+    "browserify": "cross-env NODE_ENV=production browserify cjs/src/ApiInstances.js --standalone bitshares_ws -o build/bitsharesjs-ws.js -d",
+    "postbrowserify": "cross-env NODE_ENV=production uglifyjs --compress --mangle --sequences --drop_console --mangle-props --screw-ie8 --output build/bitsharesjs-ws.min.js -- build/bitsharesjs-ws.js",
     "bundle": "npm run browserify && npm run minify"
   },
   "repository": {
@@ -48,7 +49,10 @@
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
     "browserify": "^13.0.1",
+    "cross-env": "^5.0.1",
+    "mkdirp": "^0.5.1",
     "mocha": "^2.3.4",
-    "uglifyjs": "^2.4.10"
+    "rimraf": "^2.6.1",
+    "uglify": "^0.1.5"
   }
 }
