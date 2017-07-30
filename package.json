@@ -9,16 +9,17 @@
     "test": "cross-env BABEL_ENV=test mocha --compilers js:babel-core/register --recursive",
     "test:watch": "npm test -- --watch",
     "test:manager": "cross-env BABEL_ENV=test mocha --compilers js:babel-core/register ./test/Manager --watch",
-    "clean": "rimraf cjs build es",
+    "clean": "rimraf cjs build es docs",
     "prebuild": "npm run clean",
     "build": "cross-env BABEL_ENV=cjs babel lib --out-dir cjs",
     "build-es": "cross-env BABEL_ENV=es babel ./lib -d es",
-    "postbuild": "npm run browserify && npm run build-es",
+    "postbuild": "npm run browserify && npm run build-es && npm run doc",
     "prepublish": "npm run build",
     "prebrowserify": "mkdirp build",
     "browserify": "cross-env NODE_ENV=production browserify cjs/src/ApiInstances.js --standalone bitshares_ws -o build/bitsharesjs-ws.js -d",
     "postbrowserify": "cross-env NODE_ENV=production uglifyjs --compress --mangle --sequences --drop_console --mangle-props --screw-ie8 --output build/bitsharesjs-ws.min.js -- build/bitsharesjs-ws.js",
-    "bundle": "npm run browserify && npm run minify"
+    "bundle": "npm run browserify && npm run minify",
+    "doc": "esdoc -c esdoc.json"
   },
   "repository": {
     "type": "git",
@@ -48,11 +49,19 @@
     "assert": "^1.3.0",
     "babel-cli": "^6.18.0",
     "babel-core": "^6.21.0",
+    "babel-eslint": "^7.2.3",
     "browserify": "^13.0.1",
     "cross-env": "^5.0.1",
+    "esdoc": "^0.5.2",
+    "eslint": "^4.3.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-prettier": "^2.1.2",
     "mkdirp": "^0.5.1",
     "mocha": "^2.3.4",
+    "prettier": "^1.5.3",
+    "prettier-eslint": "^6.4.2",
     "rimraf": "^2.6.1",
-    "uglify": "^0.1.5"
+    "uglify-es": "^3.0.26",
+    "uglify-js": "^3.0.26"
   }
 }

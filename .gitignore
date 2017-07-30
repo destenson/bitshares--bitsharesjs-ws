@@ -1,5 +1,8 @@
+.idea/
+node_modules/
+build/
+cjs/
+es/
+docs/
 .npmrc
-npm-debug.log
-node_modules
-cjs
-es
+*.log

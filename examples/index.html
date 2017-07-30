@@ -31,12 +31,13 @@
                   console.log("get_object", response);
                   var globalTable = document.getElementById("dynamic_global");
 
+                  var definitionTd;
                   for (var key in response[0]) {
                     if (!document.getElementById("td_" + key)) {
                       var tr = document.createElement("tr");
                       var keyTd = document.createElement("td");
                       keyTd.innerText = key;
-                      var definitionTd = document.createElement("td");
+                      definitionTd = document.createElement("td");
                       definitionTd.innerText = response[0][key];
                       definitionTd.id = "td_" + key;
                       definitionTd.style = "font-weight: bold; padding-left: 20px;";
@@ -44,7 +45,7 @@
                       tr.appendChild(definitionTd);
                       globalTable.appendChild(tr);
                     } else {
-                      var definitionTd = document.getElementById("td_" + key);
+                      definitionTd = document.getElementById("td_" + key);
                       definitionTd.innerText = response[0][key];
                     }
                   }
