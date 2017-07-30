@@ -14,6 +14,10 @@ This library can be obtained through npm:
 ```
 npm install bitsharesjs-ws
 ```
+or yarn:
+```
+yarn install bitsharesjs-ws
+```
 
 ## Usage
 
@@ -42,4 +46,4 @@ The `set_subscribe_callback` callback (updateListener) will be called whenever a
 
 ## Tests
 
-The tests show several use cases, to run, simply type `npm run test`. The tests require a local witness node to be running, as well as an active internet connection.
+The tests show several use cases, to run, simply type `npm run test` (or `yarn run test`). The tests require a local witness node to be running, as well as an active internet connection.
